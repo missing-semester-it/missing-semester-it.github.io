@@ -1,20 +1,22 @@
-# The Missing Semester of Your CS Education
+# Il semestre mancante del tuo corso di studi in informatica
+## The Missing Semester of Your CS Education
 
-[![Build Status](https://github.com/missing-semester/missing-semester/workflows/Build/badge.svg)](https://github.com/missing-semester/missing-semester/actions?query=workflow%3ABuild) [![Links Status](https://github.com/missing-semester/missing-semester/workflows/Links/badge.svg)](https://github.com/missing-semester/missing-semester/actions?query=workflow%3ALinks)
+[![Build Status](https://github.com/missing-semester-it/missing-semester-it.github.io/workflows/Build/badge.svg)](https://github.com/missing-semester-it/missing-semester-it.github.io/actions?query=workflow%3ABuild) [![Links Status](https://github.com/missing-semester-it/missing-semester-it.github.io/workflows/Links/badge.svg)](https://github.com/missing-semester-it/missing-semester-it.github.io/actions?query=workflow%3ALinks)
 
-Website for the [The Missing Semester of Your CS Education](https://missing.csail.mit.edu/) class!
+Sito per [Il semestre mancante del tuo corso di studi in informatica](https://missing-semester-it.github.io/), tradotto dal corso [The Missing Semester of Your CS Education](https://missing.csail.mit.edu/).
 
-Contributions are most welcome! If you have edits or new content to add, please
-open an issue or submit a pull request.
+Contributi alla traduzione sono benvenuti! Se hai modifiche da fare apri una _issue_ o invia una _pull request_.
 
-## Development
+## Sviluppo
 
-To build and view the site locally, run:
+Per generare e visualizzare il sito in locale lancia:
 
 ```bash
 bundle exec jekyll serve -w
 ```
 
-## License
+Occorre Ruby bundler.
 
-All the content in this course, including the website source code, lecture notes, exercises, and lecture videos is licensed under Attribution-NonCommercial-ShareAlike 4.0 International [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). See [here](https://missing.csail.mit.edu/license) for more information on contributions or translations.
+## Licenza
+
+Tutti i contenuti del corso, incluso il sorgente del sito, le note, gli esercizi e i video, sono rilasciati sotto Licenza Creative Commons Attribuzione - Non commerciale - Condividi allo stesso modo 4.0 Internazionale [CC BY-NC-SA 4.0](http://creativecommons.org/licenses/by-nc-sa/4.0/).

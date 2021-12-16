@@ -8,7 +8,7 @@ operativi al machine learning, ma c'è un argomento importante che raramente
 viene trattato ed è solitamente lasciato agli studenti: l'abilità nell'uso
 degli strumenti. In questo corso vedremo come diventare esperti della linea di
 comando, usare un editor di testo potente, utilizzare le comode funzionalità
-dei sistemi per il versionamento, e molto altro!
+dei sistemi per il controllo di versione, e molto altro!
 
 Gli studenti impiegano centinaia di ore ad usare questi strumenti durante i
 corsi curriculari (e migliaia durante la loro carriera), quindi ha senso rendere
@@ -21,7 +21,7 @@ Leggi le [motivazioni di questo corso](/about/).
 # Avanzamento della traduzione
 
 - [X] index
-- [ ] about
+- [X] about
 - [ ] 2019
     - [ ] index
     - [ ] course-overview

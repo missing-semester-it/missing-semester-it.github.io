@@ -1,141 +1,146 @@
 ---
 layout: lecture
-title: "Why we are teaching this class"
+title: "Perché è nato questo corso?"
 ---
 
-During a traditional Computer Science education, chances are you will take
-plenty of classes that teach you advanced topics within CS, everything from
-Operating Systems to Programming Languages to Machine Learning. But at many
-institutions there is one essential topic that is rarely covered and is instead
-left for students to pick up on their own: computing ecosystem literacy.
+Studiando informatica si seguono molti corsi che si addentrano negli aspetti
+avanzati della materia. Si affrontano argomenti complessi come sistemi
+operativi, linguaggi di programmazione, fino al machine learning. Ma una cosa
+manca da quasi tutti i corsi di studio in informatica, e viene lasciata agli
+studenti: un'alfabetizzazione all'uso degli strumenti e delle _utilities_.
 
-Over the years, we have helped teach several classes at MIT, and over and over
-we have seen that many students have limited knowledge of the tools available
-to them. Computers were built to automate manual tasks, yet students often
-perform repetitive tasks by hand or fail to take full advantage of powerful
-tools such as version control and text editors. In the best case, this results
-in inefficiencies and wasted time; in the worst case, it results in issues like
-data loss or inability to complete certain tasks.
+Negli anni abbiamo contribuito all'insegnamento di molti corsi al MIT, e abbiamo
+notato che molti studenti hanno una conoscenza limitata degli strumenti a loro
+disposizione. I computer sono nati per automatizzare il lavoro manuale, eppure
+gli studenti spesso eseguono azioni ripetitive a mano, oppure non riescono ad
+ottenere il massimo dagli strumenti quali sistemi per il controllo di versione
+e editor di testo. Nel miglior dei casi, questi tentativi risultano in una
+perdita di tempo; nei casi peggiori possono comportare anche perdita di dati o
+impossibilità a concludere certe attività.
 
-These topics are not taught as part of the university curriculum: students are
-never shown how to use these tools, or at least not how to use them
-efficiently, and thus waste time and effort on tasks that _should_ be simple.
-The standard CS curriculum is missing critical topics about the computing
-ecosystem that could make students' lives significantly easier.
+Tutto questo non fa parte dei curriculum universitari: agli studenti non viene
+mai mostrato come usare questi strumenti, o almeno non come usarli in maniera
+efficace, e quindi come non perdere giorni in un'attività che dovrebbe essere
+semplice. Il piano di studi classico dei corsi in informatica manca dunque di
+nozioni fondamentali sull'ecosistema che sta attorno alla programmazione e che
+può rendere la vita agli studenti significativamente più semplice.
 
-# The missing semester of your CS education
+# Il semestre mancante del tuo corso di studi in informatica
 
-To help remedy this, we are running a class that covers all the topics we
-consider crucial to be an effective computer scientist and programmer. The
-class is pragmatic and practical, and it provides hands-on introduction to
-tools and techniques that you can immediately apply in a wide variety of
-situations you will encounter. The class is being run during MIT's "Independent
-Activities Period" in January 2020 — a one-month semester that features shorter
-student-run classes. While the lectures themselves are only available to MIT
-students, we will provide all lecture materials along with video recordings of
-lectures to the public.
+Per porre rimedio a questo, abbiamo avviato un corso che tratti tutti gli
+aspetti da noi considerati cruciali per essere un efficiente informatico. Il
+corso è molto pratico e prevede una dimostrazione introduttiva agli strumenti e
+alle tecniche che potrai immediatamente applicare in una vasta gamma di
+situazioni che incontrerai. Il corso si svolge durante la sessione delle
+attività indipendenti del MIT a Gennaio 2020 - un semestre di un mese durante il
+quale si svolgono brevi lezioni tenute dagli studenti. Mentre le lezioni in
+presenza sono riservate agli studenti del MIT, metteremo pubblicamente a
+disposizione tutti i materiali, insieme alle registrazioni.
 
-If this sounds like it might be for you, here are some concrete
-examples of what the class will teach:
+Se questo ti ispira potrebbe fare al caso tuo. Ecco alcuni esempi concreti di
+quello che andremo a vedere:
 
-## Command shell
+## Shell dei comandi
 
-How to automate common and repetitive tasks with aliases, scripts,
-and build systems. No more copy-pasting commands from a text
-document. No more "run these 15 commands one after the other". No
-more "you forgot to run this thing" or "you forgot to pass this
-argument".
+Come automatizzare azioni comuni e ripetitive con gli _alias_, _script_ e
+sistemi di _build_. Niente più copia e incolla di comandi da un file di testo.
+Niente più "esegui questi 15 comandi uno dopo l'altro". Niente più "hai
+dimenticato di eseguire questo passaggio" o "hai dimenticato quest'argomento".
 
-For example, searching through your history quickly can be a huge time saver. In the example below we show several tricks related to navigating your shell history for `convert` commands.
+Ad esempio, la ricerca nella cronologia dei comandi può facilmente farti
+risparmiare molto tempo. Nell'esempio  qua sotto mostriamo alcuni trucchetti per
+navigare nella cronologia della shell alla ricerca del comando `convert`.
 
 <video autoplay="autoplay" loop="loop" controls muted playsinline  oncontextmenu="return false;"  preload="auto"  class="demo">
   <source src="/static/media/demos/history.mp4" type="video/mp4">
 </video>
 
-## Version control
+## Sistemi per il controllo di versione
 
-How to use version control _properly_, and take advantage of it to
-save you from disaster, collaborate with others, and quickly find and
-isolate problematic changes. No more `rm -rf; git clone`. No more
-merge conflicts (well, fewer of them at least). No more huge blocks
-of commented-out code. No more fretting over how to find what broke
-your code. No more "oh no, did we delete the working code?!". We'll
-even teach you how to contribute to other people's projects with pull
-requests!
+Come usare _correttamente_ i sistemi per il controllo di versione, e sfruttarli
+per salvarti dai disastri, collaborare con gli altri, e trovare ed isolare
+facilmente i cambiamenti problematici. Niente più `rm -rf; git clone`, niente
+più conflitti di _merge_ (o meglio, meno conflitti), niente più grosse porzioni
+di codice commentate, niente più affannose ricerche a che modifica ha rotto il
+tuo codice, niente più "oh no, hai cancellato il codice che funzionava?!". Ti
+insegneremo anche come contribuire ai progetti degli altri con le _pull
+requests_!
 
-In the example below we use `git bisect` to find which commit broke a unit test and then we fix it with `git revert`.
+Nell'esempio sottostante usiamo `git bisect` alla ricerca del _commit_ che ha
+rotto un _unit test_ e poi lo aggiustiamo con `git revert`.
 <video autoplay="autoplay" loop="loop" controls muted playsinline  oncontextmenu="return false;"  preload="auto"  class="demo">
   <source src="/static/media/demos/git.mp4" type="video/mp4">
 </video>
 
-## Text editing
+## Editor di testo
 
-How to efficiently edit files from the command-line, both locally and
-remotely, and take advantage of advanced editor features. No more
-copying files back and forth. No more repetitive file editing.
+Come modificare in maniera efficiente file di testo da linea di comando, sia in
+locale che in remoto, e sfruttare le _feature_ avanzate degli editor. Niente più
+copia di file e modifiche ripetitive.
 
-Vim macros are one of its best features, in the example below we quickly convert an html table to csv format using a nested vim macro.
+Le macro di vim sono una delle sue migliori funzionalità, in questo esempio
+convertiamo velocemente una tabella html in csv usando una macro di vim.
 <video autoplay="autoplay" loop="loop" controls muted playsinline  oncontextmenu="return false;"  preload="auto"  class="demo">
   <source src="/static/media/demos/vim.mp4" type="video/mp4">
 </video>
 
-## Remote machines
+## Macchine remote
 
-How to stay sane when working with remote machines using SSH keys and
-terminal multiplexing. No more keeping many terminals open just to
-run two commands at once. No more typing your password every time you
-connect. No more losing everything just because your Internet
-disconnected or you had to reboot your laptop.
+Come lavorare tranquillamente con macchine remote usando le chiavi SSH e il
+_multiplexing_ del terminale. Niente più terminali bloccati per un solo comando
+in esecuzione, niente più dover inserire la password ad ogni connessione, niente
+più dover perdere la sessione di lavoro perché cade la connessione o bisogna
+riavviare il portatile.
 
-In the example below we use `tmux` to keep sessions alive in remote servers and `mosh` to support network roaming and disconnection.
+Nell'esempio seguente usiamo `tmux` per tenere attiva la sessione sul server
+remoto e `mosh` per supportare la disconnessione della rete.
 
 <video autoplay="autoplay" loop="loop" controls muted playsinline  oncontextmenu="return false;"  preload="auto"  class="demo">
   <source src="/static/media/demos/ssh.mp4" type="video/mp4">
 </video>
 
-## Finding files
+## Trovare file
 
-How to quickly find files that you are looking for. No
-more clicking through files in your project until you find the one
-that has the code you want.
+Come trovare velocemente i file che stai cercando. Niente più ricerche disperate
+nelle cartelle fino a che non trovi il pezzo di codice desiderato.
 
-In the example below we quickly look for files with `fd` and for code snippets with `rg`. We also quickly `cd` and `vim` recent/frequent files/folder using `fasd`.
+In questo esempio cerchiamo file con `fd` e pezzi di codice con `rg`. Inoltre ci
+spostiamo di cartella ed apriamo file in posizioni usate di frequente con
+`fasd`.
 
 <video autoplay="autoplay" loop="loop" controls muted playsinline  oncontextmenu="return false;"  preload="auto"  class="demo">
   <source src="/static/media/demos/find.mp4" type="video/mp4">
 </video>
 
-## Data wrangling
+## Manipolazione dei dati
 
-How to quickly and easily modify, view, parse, plot, and compute over
-data and files directly from the command-line. No more copy pasting
-from log files. No more manually computing statistics over data. No
-more spreadsheet plotting.
+Come modificare, visualizzare, leggere, plottare e calcolare facilmente a
+partire da dati grezzi, direttamenti dalla linea di comando. Niente più copia e
+incolla dai file di log, o calcoli statistici manuali, come niente più grafici
+da fogli di calcolo.
 
-## Virtual machines
+## Macchine virtuali
 
-How to use virtual machines to try out new operating systems, isolate
-unrelated projects, and keep your main machine clean and tidy. No
-more accidentally corrupting your computer while doing a security
-lab. No more millions of randomly installed packages with differing
-versions.
+Come usare le macchine virtuali per provare nuovi sistemi operativi, isolare
+progetti diversi, e tenere la tua macchina pulita. Niente più corruzioni
+accidentali del tuo computer, niente più milioni di pacchetti installati con
+versioni diverse.
 
-## Security
+## Sicurezza
 
-How to be on the Internet without immediately revealing all of your
-secrets to the world. No more coming up with passwords that match the
-insane criteria yourself. No more unsecured, open WiFi networks. No
-more unencrypted messaging.
+Come usare internet senza rivelare i tuoi segreti al mondo. Niente più password
+banali, niente più WiFi pubblicamente aperti, niente più messaggi in chiaro.
 
-# Conclusion
+# Conclusioni
 
-This, and more, will be covered across the 12 class lectures, each including an
-exercise for you to get more familiar with the tools on your own. If you can't
-wait for January, you can also take a look at the lectures from [Hacker
-Tools](https://hacker-tools.github.io/lectures/), which we ran during IAP last
-year. It is the precursor to this class, and covers many of the same topics.
+Questo, e molto altro, sarà trattato nelle 12 lezioni, ognuna delle quali
+include degli esercizi per familiarizzare meglio con gli strumenti. Se non puoi
+aspettare Gennaio, puoi dare un occhio alle lezioni di [Hacker
+Tools](/2019), tenute da noi durante lo IAP
+l'anno scorso: è il precursore di questo corso e tratta quasi gli stessi
+argomenti.
 
-We hope to see you in January, whether virtually or in person!
+Speriamo di vedervi a gennaio, online o in presenza!
 
-Happy hacking,<br>
+Buon hacking,<br>
 Anish, Jose, and Jon

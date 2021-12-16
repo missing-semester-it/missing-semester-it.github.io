@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Shell Tools and Scripting"
+title: "Strumenti della shell e script"
 date: 2020-01-14
 ready: true
 video:

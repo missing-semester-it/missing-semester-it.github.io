@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Security and Cryptography"
+title: "Sicurezza e crittografia"
 date: 2020-01-28
 ready: true
 video:

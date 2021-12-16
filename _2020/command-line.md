@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Command-line Environment"
+title: "Ambiente della linea di comando"
 date: 2020-01-21
 ready: true
 video:

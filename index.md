@@ -1,42 +1,67 @@
 ---
 layout: page
-title: The Missing Semester of Your CS Education
+title: Il semestre mancante del tuo corso di studi in informatica
 ---
 
-Classes teach you all about advanced topics within CS, from operating systems
-to machine learning, but there’s one critical subject that’s rarely covered,
-and is instead left to students to figure out on their own: proficiency with
-their tools. We’ll teach you how to master the command-line, use a powerful
-text editor, use fancy features of version control systems, and much more!
+I corsi insegnano tutti gli argomenti avanzati dell'informatica, dai sistemi
+operativi al machine learning, ma c'è un argomento importante che raramente
+viene trattato ed è solitamente lasciato agli studenti: l'abilità nell'uso
+degli strumenti. In questo corso vedremo come diventare esperti della linea di
+comando, usare un editor di testo potente, utilizzare le comode funzionalità
+dei sistemi per il versionamento, e molto altro!
 
-Students spend hundreds of hours using these tools over the course of their
-education (and thousands over their career), so it makes sense to make the
-experience as fluid and frictionless as possible. Mastering these tools not
-only enables you to spend less time on figuring out how to bend your tools to
-your will, but it also lets you solve problems that would previously seem
-impossibly complex.
+Gli studenti impiegano centinaia di ore ad usare questi strumenti durante i
+corsi curriculari (e migliaia durante la loro carriera), quindi ha senso rendere
+l'esperienza più fluida possibile. Padroneggiare questi strumenti non solo ti
+permette di impiegare meno tempo per capire come usarli per i tuoi scopi, ma ti
+aiuta anche a risolvere problemi che prima sarebbero sembrati impossibili.
 
-Read about the [motivation behind this class](/about/).
+Leggi le [motivazioni di questo corso](/about/).
 
-{% comment %}
-# Registration
+# Avanzamento della traduzione
 
-Sign up for the IAP 2020 class by filling out this [registration form](https://forms.gle/TD1KnwCSV52qexVt9).
-{% endcomment %}
+- [X] index
+- [ ] about
+- [ ] 2019
+    - [ ] index
+    - [ ] course-overview
+    - [ ] virtual-machines
+    - [ ] shell
+    - [ ] command-line
+    - [ ] data-wrangling
+    - [ ] editors
+    - [ ] version-control
+    - [ ] dotfiles
+    - [ ] backups
+    - [ ] automation
+    - [ ] machine-introspection
+    - [ ] program introspection
+    - [ ] package-management
+    - [ ] os-customization
+    - [ ] remote-machines
+    - [ ] web 
+    - [ ] security
+- [ ] 2020
+    - [ ] course-shell
+    - [ ] sehll-tools
+    - [ ] editors
+    - [ ] data-wrangling
+    - [ ] command-line
+    - [ ] version-control
+    - [ ] debugging-profiling
+    - [ ] metaprogramming
+    - [ ] security
+    - [ ] potpurri
+    - [ ] qa
 
-# Schedule
-
-{% comment %}
-**Lecture**: 35-225, 2pm--3pm<br>
-**Office hours**: 32-G9 lounge, 3pm--4pm (every day, right after lecture)
-{% endcomment %}
+# Ultime lezioni
 
 <ul>
 {% assign lectures = site['2020'] | sort: 'date' %}
 {% for lecture in lectures %}
     {% if lecture.phony != true %}
         <li>
-        <strong>{{ lecture.date | date: '%-m/%d/%y' }}</strong>:
+        <strong>{{ lecture.date | date: '%d/%m/%y' }}</strong>:
         {% if lecture.ready %}
             <a href="{{ lecture.url }}">{{ lecture.title }}</a>
         {% else %}
@@ -47,18 +72,18 @@ Sign up for the IAP 2020 class by filling out this [registration form](https://f
 {% endfor %}
 </ul>
 
-Video recordings of the lectures are available [on
+Le videoregistrazioni delle lezioni sono disponibili [su
 YouTube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J).
 
-# About the class
+# Informazioni sul corso
 
-**Staff**: This class is co-taught by [Anish](https://www.anishathalye.com/), [Jon](https://thesquareplanet.com/), and [Jose](http://josejg.com/).
-**Questions**: Email us at [missing-semester@mit.edu](mailto:missing-semester@mit.edu).
+**Docenti**: Questo corso è tenuto da [Anish](https://www.anishathalye.com/), [Jon](https://thesquareplanet.com/), e [Jose](http://josejg.com/).  
+**Domande**: Manda una mail (in inglese) a [missing-semester@mit.edu](mailto:missing-semester@mit.edu).
 
-# Beyond MIT
+# Al di fuori del MIT
 
-We've also shared this class beyond MIT in the hopes that others may
-benefit from these resources. You can find posts and discussion on
+Abbiamo condiviso questo corso al di fuori del MIT nella speranza possa essere
+utile anche ad altri. Puoi trovare post e discussioni su:
 
  - [Hacker News](https://news.ycombinator.com/item?id=22226380)
  - [Lobsters](https://lobste.rs/s/ti1k98/missing_semester_your_cs_education_mit)
@@ -67,38 +92,40 @@ benefit from these resources. You can find posts and discussion on
  - [Twitter](https://twitter.com/jonhoo/status/1224383452591509507)
  - [YouTube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J)
 
-# Translations
+# Traduzioni
 
-- [Chinese (Simplified)](https://missing-semester-cn.github.io/)
-- [Chinese (Traditional)](https://missing-semester-zh-hant.github.io/)
-- [Japanese](https://missing-semester-jp.github.io/)
-- [Korean](https://missing-semester-kr.github.io/)
-- [Portuguese](https://missing-semester-pt.github.io/)
-- [Russian](https://missing-semester-rus.github.io/)
-- [Serbian](https://netboxify.com/missing-semester/)
-- [Spanish](https://missing-semester-esp.github.io/)
-- [Turkish](https://missing-semester-tr.github.io/)
-- [Vietnamese](https://missing-semester-vn.github.io/)
+- [Originale in inglese](https://missing.csail.mit.edu/)
 
-Note: these are external links to community translations. We have not vetted
-them.
+- [Cinese (Semplificato)](https://missing-semester-cn.github.io/)
+- [Cinese (Tradizionale)](https://missing-semester-zh-hant.github.io/)
+- [Giapponese](https://missing-semester-jp.github.io/)
+- [Coreano](https://missing-semester-kr.github.io/)
+- [Portoghese](https://missing-semester-pt.github.io/)
+- [Russo](https://missing-semester-rus.github.io/)
+- [Serbo](https://netboxify.com/missing-semester/)
+- [Spagnolo](https://missing-semester-esp.github.io/)
+- [Turco](https://missing-semester-tr.github.io/)
+- [Vietnamita](https://missing-semester-vn.github.io/)
 
-Have you created a translation of the course notes from this class? Submit a
-[pull request](https://github.com/missing-semester/missing-semester/pulls) so
-we can add it to the list!
+Attenzione: questi ultimi sono link esterni alle traduzioni della community, che
+non sono state verificate dagli autori originali.
 
-## Acknowledgements
+Hai creato una traduzione delle note del corso? Invia una
+[pull request](https://github.com/missing-semester/missing-semester/pulls) in
+modo che vengano aggiunte alla lista!
 
-We thank Elaine Mello, Jim Cain, and [MIT Open
-Learning](https://openlearning.mit.edu/) for making it possible for us to
-record lecture videos; Anthony Zolnik and [MIT
-AeroAstro](https://aeroastro.mit.edu/) for A/V equipment; and Brandi Adams and
-[MIT EECS](https://www.eecs.mit.edu/) for supporting this class.
+## Ringraziamenti
+
+Un dovuto ringraziamento a Elaine Mello, Jim Cain, and [MIT Open
+Learning](https://openlearning.mit.edu/) per aver reso possibile la
+registrazione delle lezioni; Anthony Zolnik and [MIT AeroAstro](https://aeroastro.mit.edu/)
+per la strumentazione A/V; Brandi Adams e [MIT EECS](https://www.eecs.mit.edu/)
+per aver supportato questo corso.
 
 ---
 
 <div class="small center">
-<p><a href="https://github.com/missing-semester/missing-semester">Source code</a>.</p>
-<p>Licensed under CC BY-NC-SA.</p>
-<p>See <a href="/license/">here</a> for contribution &amp; translation guidelines.</p>
+<p><a href="https://github.com/missing-semester-it/missing-semester-it.github.io">Codice sorgente</a>.</p>
+<p>Rilasciato sotto licenza CC BY-NC-SA.</p>
+<p>Guarda <a href="/license/">qui</a> per le linee guida sui contributi e traduzioni.</p>
 </div>

@@ -1,21 +1,33 @@
 # Il semestre mancante del tuo corso di studi in informatica
 ## The Missing Semester of Your CS Education
 
-[![Build Status](https://github.com/missing-semester-it/missing-semester-it.github.io/workflows/Build/badge.svg)](https://github.com/missing-semester-it/missing-semester-it.github.io/actions?query=workflow%3ABuild) [![Links Status](https://github.com/missing-semester-it/missing-semester-it.github.io/workflows/Links/badge.svg)](https://github.com/missing-semester-it/missing-semester-it.github.io/actions?query=workflow%3ALinks)
+Sito per [Il semestre mancante del tuo corso di studi in informatica](https://missing-semester-it.github.io/), 
+tradotto dal corso [The Missing Semester of Your CS Education](https://missing.csail.mit.edu/).
 
-Sito per [Il semestre mancante del tuo corso di studi in informatica](https://missing-semester-it.github.io/), tradotto dal corso [The Missing Semester of Your CS Education](https://missing.csail.mit.edu/).
+Contributi alla traduzione sono benvenuti!
+Se hai modifiche da fare apri una _issue_ o invia una _pull request_.
 
-Contributi alla traduzione sono benvenuti! Se hai modifiche da fare apri una _issue_ o invia una _pull request_.
+## Avanzamento della traduzione
+
+Visualizza l'[avanzamento della traduzione](index.md#avanzamento-della-traduzione).
 
 ## Sviluppo
 
 Per generare e visualizzare il sito in locale lancia:
 
 ```bash
-bundle exec jekyll serve -w
+bundle-2.7 exec jekyll serve -w
 ```
 
 Occorre Ruby bundler.
+
+### Anteprima in tempo reale
+
+Per l'anteprima in tempo reale del sito durante la sua modifica lanciare:
+
+```bash
+bundle-2.7 exec jekyll serve -w --incremental
+```
 
 ## Licenza
 

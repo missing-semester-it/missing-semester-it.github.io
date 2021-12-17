@@ -42,7 +42,7 @@ Leggi le [motivazioni di questo corso](/about/).
     - [ ] web 
     - [ ] security
 - [ ] 2020
-    - [ ] course-shell
+    - [-] course-shell
     - [ ] sehll-tools
     - [ ] editors
     - [ ] data-wrangling

@@ -8,92 +8,85 @@ video:
   id: Z56Jmr9Z34Q
 ---
 
-# Motivation
+# Motivazioni
 
-As computer scientists, we know that computers are great at aiding in
-repetitive tasks. However, far too often, we forget that this applies
-just as much to our _use_ of the computer as it does to the computations
-we want our programs to perform. We have a vast range of tools
-available at our fingertips that enable us to be more productive and
-solve more complex problems when working on any computer-related
-problem. Yet many of us utilize only a small fraction of those tools; we
-only know enough magical incantations by rote to get by, and blindly
-copy-paste commands from the internet when we get stuck.
+Da informatici sappiamo  che i computer offrono un grande aiuto a svolgere
+operazioni ripetitive. Nonostante ciò, troppo spesso ci dimentichiamo che questo
+può essere sfruttato anche nell'utilizzo del computer. Abbiamo a disposizione
+un'ampia gamma di strumenti che ci permettono di essere più produttivi e di
+risolvere problemi complessi che si incontrano durante il lavoro. Solitamente la
+maggior parte di noi usa solo marginalmente questi strumenti, magari facendo
+ciecamente copia e incolla da qualche sito.
 
-This class is an attempt to address this.
+Questa corso ha come obiettivo farvi scoprire questi strumenti e come usarli al
+meglio.
 
-We want to teach you how to make the most of the tools you know, show
-you new tools to add to your toolbox, and hopefully instill in you some
-excitement for exploring (and perhaps building) more tools on your own.
-This is what we believe to be the missing semester from most Computer
-Science curricula.
+Vogliamo insegnarvi ad usare al massimo delle loro potenzialità gli strumenti
+che già usate, e mostrarvi nuovi strumenti da aggiungere al vostro bagaglio,
+nella speranza di avviarvi all'esplorazione (e magari implementazione) di altri
+strumenti. Questo è ciò che pensiamo sia il semestre mancante dalla maggior
+parte dei curriculum di informatica.
 
-# Class structure
+# Struttura del corso
 
-The class consists of 11 1-hour lectures, each one centering on a
-[particular topic](/2020/). The lectures are largely independent,
-though as the semester goes on we will presume that you are familiar
-with the content from the earlier lectures. We have lecture notes
-online, but there will be a lot of content covered in class (e.g. in the
-form of demos) that may not be in the notes. We will be recording
-lectures and posting the recordings online.
+Il corso è diviso in 11 lezioni da un'ora, ognuna delle quali tratta un
+[argomento specifico](/2020/).  Le lezioni sono indipendenti una dall'altra, ma
+daremo per scontato che avrete familiarità con gli argomenti delle lezioni
+precedenti. Online sono disponibili le note delle lezioni, ma durante le lezioni
+ci saranno alcune dimostrazioni interessanti che potrebbero non essere scritte
+nelle note. Le lezioni saranno registrate e pubblicate online.
 
-We are trying to cover a lot of ground over the course of just 11 1-hour
-lectures, so the lectures are fairly dense. To allow you some time to
-get familiar with the content at your own pace, each lecture includes a
-set of exercises that guide you through the lecture's key points. After
-each lecture, we are hosting office hours where we will be present to
-help answer any questions you might have. If you are attending the class
-online, you can send us questions at
+Le lezioni saranno molto dense, nel tentativo di farvi scoprire molto nel poco
+tempo a disposizione. Per questo ogni lezione è corredata da degli esercizi che
+vi guideranno attraverso i punti chiave della lezione. Dopo ogni lezione ci sarà
+ricevimento, durante il quale risponderemo alle vostre domande. Se seguirai da
+remoto puoi farci le domande via mail (in inglese) a
 [missing-semester@mit.edu](mailto:missing-semester@mit.edu).
 
-Due to the limited time we have, we won't be able to cover all the tools
-in the same level of detail a full-scale class might. Where possible, we
-will try to point you towards resources for digging further into a tool
-or topic, but if something particularly strikes your fancy, don't
-hesitate to reach out to us and ask for pointers!
+Visto il poco tempo a disposizione, non potremmo coprire tutti gli strumenti
+allo stesso livello di completezza di un normale corso. Ove possibile vi
+indicheremo le risorse che potete usare per approfondire, ma se una cosa
+particolare vi stuzzica non esitate a chiederci altri materiali!
 
-# Topic 1: The Shell
+# Argomento 1: La Shell
 
-## What is the shell?
+## Cos'è shell?
 
-Computers these days have a variety of interfaces for giving them
-commands; fanciful graphical user interfaces, voice interfaces, and
-even AR/VR are everywhere. These are great for 80% of use-cases, but
-they are often fundamentally restricted in what they allow you to do —
-you cannot press a button that isn't there or give a voice command that
-hasn't been programmed. To take full advantage of the tools your
-computer provides, we have to go old-school and drop down to a textual
-interface: The Shell.
+I computer hanno molte interfacce attraverso cui dar loro comandi; carine
+interfacce grafiche, interfacce vocali, e anche attraverso la realtà
+virtuale/aumentata. Queste sono comode per l'80% dei casi d'uso, ma sono
+solitamente ristrette nelle loro potenzialità: non puoi premere un pulsante se
+non c'è o dare un comando vocale non programmato. Per usare al massimo gli
+strumenti che il tuo computer ti offre, dobbiamo usare la "vecchia" interfaccia,
+ovvero la shell.
 
-Nearly all platforms you can get your hand on has a shell in one form or
-another, and many of them have several shells for you to choose from.
-While they may vary in the details, at their core they are all roughly
-the same: they allow you to run programs, give them input, and inspect
-their output in a semi-structured way.
+In quasi tutte le piattaforme puoi avere accesso ad una shell, in un modo o
+nell'altro, e in molte puoi anche scegliere fra una vasta gamma di shell. Mentre
+possono cambiare in alcuni dettagli peculiari, il loro _core_ è più o meno lo
+stesso: ti consentono di avviare programmi, passargli input, e analizzare il
+loro output, in una maniera semi-strutturata.
 
-In this lecture, we will focus on the Bourne Again SHell, or "bash" for
-short. This is one of the most widely used shells, and its syntax is
-similar to what you will see in many other shells. To open a shell
-_prompt_ (where you can type commands), you first need a _terminal_.
-Your device probably shipped with one installed, or you can install one
-fairly easily.
+In questa lezione ci concentreremo sulla Bourne Again SHell (bash): una delle
+shell più usate, la cui sintassi è simile a quella di molte altre shell. Per
+aprire il _prompt_ di una shell (dove andranno digitati i comandi), occorre un
+_terminale_. Molto probabilmente il tuo dispositivo ne ha già uno, altrimenti
+puoi facilmente installarlo.
 
-## Using the shell
+## Usare la shell
 
-When you launch your terminal, you will see a _prompt_ that often looks
-a little like this:
+Quando avvii il terminale, vedrai un _prompt_ che solitamente assomiglia a
+questo:
 
 ```console
 missing:~$ 
 ```
 
-This is the main textual interface to the shell. It tells you that you
-are on the machine `missing` and that your "current working directory",
-or where you currently are, is `~` (short for "home"). The `$` tells you
-that you are not the root user (more on that later). At this prompt you
-can type a _command_, which will then be interpreted by the shell. The
-most basic command is to execute a program:
+Questa è l'interfaccia testuale principale della shell. Ti dice che stai usando
+la macchina di nome `missing` e che la tua cartella di lavoro corrente è `~` (un
+alias per indicare la cartella personale dell'utente, la _home_). Il dollaro
+indica che sei un utente standard (non _root_, ne parleremo dopo). Dopo questo
+prompt puoi digitare un _comando_, che verrà interpretato dalla shell. Il
+comando più semplice che puoi dare è eseguire un programma:
 
 ```console
 missing:~$ date
@@ -101,65 +94,64 @@ Fri 10 Jan 2020 11:49:31 AM EST
 missing:~$ 
 ```
 
-Here, we executed the `date` program, which (perhaps unsurprisingly)
-prints the current date and time. The shell then asks us for another
-command to execute. We can also execute a command with _arguments_:
+Qui abbiamo eseguito il programma `date`, che sorprendentemente stampa a video
+la data e l'ora corrente. La shell dopodiché mostra un altro prompt in attesa
+del prossimo comando. Possiamo anche eseguire comandi con _argomenti_:
 
 ```console
 missing:~$ echo hello
 hello
 ```
 
-In this case, we told the shell to execute the program `echo` with the
-argument `hello`. The `echo` program simply prints out its arguments.
-The shell parses the command by splitting it by whitespace, and then
-runs the program indicated by the first word, supplying each subsequent
-word as an argument that the program can access. If you want to provide
-an argument that contains spaces or other special characters (e.g., a
-directory named "My Photos"), you can either quote the argument with `'`
-or `"` (`"My Photos"`), or escape just the relevant characters with `\`
-(`My\ Photos`).
+In questo caso abbiamo detto alla shell di eseguire il programma `echo` con
+`hello` come argomento. Il programma `echo` semplicemente stampa a video i suoi
+argomenti. La shell interpreta il comando e i suoi argomenti sperandoli con uno
+spazio, e poi avvia il programma indicato dalla prima parola, passandogli come
+argomento ogni parola successiva. Se vuoi passare un argomento che contiene uno
+spazio o altri caratteri speciali (ad esempio la cartella "Foto personali"),
+puoi sia racchiudere l'argomento fra virgolette singole (`'Foto personali'`) o 
+doppie (`"foto personali"`), oppure usare la sequenza di _escape_ per lo spazio 
+(`Foto\ personali`).
 
-But how does the shell know how to find the `date` or `echo` programs?
-Well, the shell is a programming environment, just like Python or Ruby,
-and so it has variables, conditionals, loops, and functions (next
-lecture!). When you run commands in your shell, you are really writing a
-small bit of code that your shell interprets. If the shell is asked to
-execute a command that doesn't match one of its programming keywords, it
-consults an _environment variable_ called `$PATH` that lists which
-directories the shell should search for programs when it is given a
-command:
+Ma come fa la shell a sapere dove si trovano i  programmi?
+La shell è un ambiente di programmazione, come Python o Ruby, e ha quindi le
+variabili, le condizioni, i cicli e le funzioni (vedremo tutte queste cose nella
+prossima lezione!). Quando avvi un comando nella shell, non stai facendo altro
+che scrivere un piccolo pezzo di codice che la tua shell interpreta. Se alla
+shell viene chiesto di eseguire un comando che non rientra nelle sue _keyword_,
+allora legge una _variabile d'ambiente_ chiamata `$PATH` che elenca le cartelle
+dove la shell deve cercare i programmi richiesti:
 
 
 ```console
 missing:~$ echo $PATH
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-missing:~$ which echo
+missing:~$ type echo
 /bin/echo
 missing:~$ /bin/echo $PATH
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ```
 
-When we run the `echo` command, the shell sees that it should execute
-the program `echo`, and then searches through the `:`-separated list of
-directories in `$PATH` for a file by that name. When it finds it, it
-runs it (assuming the file is _executable_; more on that later). We can
-find out which file is executed for a given program name using the
-`which` program. We can also bypass `$PATH` entirely by giving the
-_path_ to the file we want to execute.
+Quando avvii il comando `echo`, la shell capisce che deve eseguire il programma
+`echo` e lo cerca attraverso le cartelle elencate (separate da `:`) nella
+variabile `$PATH`. Quando lo trova lo esegue (assumendo che il file abbia i
+permessi di esecuzione; ne parleremo più avanti). Possiamo trovare quale file
+venga eseguito per un dato programma usando il comando `type` (o il suo
+antenato, `which`). Possiamo eludere `$PATH` inserendo direttamente il percorso
+completo al file che vogliamo eseguire.
 
-## Navigating in the shell
+## Muoversi nella shell
 
-A path on the shell is a delimited list of directories; separated by `/`
-on Linux and macOS and `\` on Windows. On Linux and macOS, the path `/`
-is the "root" of the file system, under which all directories and files
-lie, whereas on Windows there is one root for each disk partition (e.g.,
-`C:\`). We will generally assume that you are using a Linux filesystem
-in this class. A path that starts with `/` is called an _absolute_ path.
-Any other path is a _relative_ path. Relative paths are relative to the
-current working directory, which we can see with the `pwd` command and
-change with the `cd` command. In a path, `.` refers to the current
-directory, and `..` to its parent directory:
+Un percorso nella shell è una lista di cartelle separate da `/` (o `\` su
+Windows). Negli ambienti Unix-like (come GNU/Linux e macOS) il percorso `/`
+rappresenta la radice (root) del _file system_, dentro la quale si trovano tutti
+i file e le cartelle, mentre in Windows c'è una radice diversa per ogni
+partizione (ad esempio `C:\`). In questo corso supporremo che stiate usando un
+file system Unix-like. Un percorso che iniza con `/` è detto _assoluto_. Ogni
+altro percorso è detto _relativo_. I percorsi relativi sono relativi all'attuale
+cartella di lavoro, che può essere visualizzata con il comando `pwd` (print
+working directory) e cambiata con `cd` (change directory). In un percorso `.` si
+riferisce alla cartella corrente, mentre `..` alla cartella padre:
 
 ```console
 missing:~$ pwd
@@ -180,15 +172,15 @@ missing:~$ ../../bin/echo hello
 hello
 ```
 
-Notice that our shell prompt kept us informed about what our current
-working directory was. You can configure your prompt to show you all
-sorts of useful information, which we will cover in a later lecture.
+Notate come il prompt ci tenga informati sulla cartella in cui stiamo lavorando.
+Il prompt può essere personalizzato per mostrare molte altre informazioni utili,
+che andremo a vedere più avanti.
 
-In general, when we run a program, it will operate in the current
-directory unless we tell it otherwise. For example, it will usually
-search for files there, and create new files there if it needs to.
+In generale, quando avviamo un programma, questo opera nella cartella corrente a
+meno che non specifichiamo diversamente. Ad esempio aprirà e/o creerà file nella
+cartella in cui ci troviamo quando viene eseguito.
 
-To see what lives in a given directory, we use the `ls` command:
+Per vedere il contenuto di una cartella si usa il comando `ls`:
 
 ```console
 missing:~$ ls
@@ -205,12 +197,12 @@ home
 ...
 ```
 
-Unless a directory is given as its first argument, `ls` will print the
-contents of the current directory. Most commands accept flags and
-options (flags with values) that start with `-` to modify their
-behavior. Usually, running a program with the `-h` or `--help` flag
-will print some help text that tells you what flags
-and options are available. For example, `ls --help` tells us:
+`ls` mostra il contenuto della cartella corrente o della cartella che gli viene
+passata come argomento. La maggior parte dei comandi accetta dei _flag_ e
+opzioni (flag con un valore associato), che iniziano con un trattino, i quali
+modificano il loro comportamento. Di solito, avviando un programma col flag `-h`
+o `--help` stamperà a video un riassunto dei flag e delle opzioni disponibili.
+Per esempio `ls --help` ci dirà:
 
 ```
   -l                         use a long listing format
@@ -221,45 +213,39 @@ missing:~$ ls -l /home
 drwxr-xr-x 1 missing  users  4096 Jun 15  2019 missing
 ```
 
-This gives us a bunch more information about each file or directory
-present. First, the `d` at the beginning of the line tells us that
-`missing` is a directory. Then follow three groups of three characters
-(`rwx`). These indicate what permissions the owner of the file
-(`missing`), the owning group (`users`), and everyone else respectively
-have on the relevant item. A `-` indicates that the given principal does
-not have the given permission. Above, only the owner is allowed to
-modify (`w`) the `missing` directory (i.e., add/remove files in it). To
-enter a directory, a user must have "search" (represented by "execute":
-`x`) permissions on that directory (and its parents). To list its
-contents, a user must have read (`r`) permissions on that directory. For
-files, the permissions are as you would expect. Notice that nearly all
-the files in `/bin` have the `x` permission set for the last group,
-"everyone else", so that anyone can execute those programs.
+Questo ci darà molte informazioni in più riguardo ai file e alle cartelle
+presenti. La `d` all'inizio della riga ci dice che si tratta di una cartella
+(directory). Poi ci sono 3 gruppi da 3 caratteri (`rwx`) indicanti i permessi
+che il proprietario del file (`missing`), il gruppo proprietario (`users`), e
+tutti gli altri hanno rispettivamente sull'elemento. Un `-` indica che il
+permesso non è concesso. Nell'esempio solo il proprietario ha i permessi di
+scrittura (`w`riting; ovvero aggiungere/rimuovere file). Per accedere ad una
+cartella bisogna avere i permessi di esecuzione (e`x`ecute) sulla
+stessa, nonché su tutte le cartelle genitore. Per elencare i file bisogna avere
+i permessi di lettura (`r`eading) sulla cartella. Per i file i permessi sono
+più intuitivi. Notate come quasi tutti i file in `/bin` siano eseguibili da
+chiunque in modo che tutti possano avviare questi programmi.
 
-Some other handy programs to know about at this point are `mv` (to
-rename/move a file), `cp` (to copy a file), and `mkdir` (to make a new
-directory).
+Molti altri programmi utili da conoscere a questo punto sono `mv` per rinominare
+e spostare file, `cp` per copiarli e `mkdir` per creare cartelle.
 
-If you ever want _more_ information about a program's arguments, inputs,
-outputs, or how it works in general, give the `man` program a try. It
-takes as an argument the name of a program, and shows you its _manual
-page_. Press `q` to exit.
+Se vuoi più informazioni su un programma e i suoi argomenti, usa il programma
+`man` che fornisce i manuali della maggior parte dei programmi a linea di
+comando. Per uscire dal manuale premi `q`.
 
 ```console
 missing:~$ man ls
 ```
 
-## Connecting programs
+## Connettere programmi
 
-In the shell, programs have two primary "streams" associated with them:
-their input stream and their output stream. When the program tries to
-read input, it reads from the input stream, and when it prints
-something, it prints to its output stream. Normally, a program's input
-and output are both your terminal. That is, your keyboard as input and
-your screen as output. However, we can also rewire those streams!
+Nella shell i programmi hanno due canali (stream) principali che possono usare:
+quello di input e quello di output. Normalmente entrambi sono associati al
+terminale, ovvero la tua tastiera come input e lo schermo com output. Nonostante
+ciò è possibile reindirizzare questi stream.
 
-The simplest form of redirection is `< file` and `> file`. These let you
-rewire the input and output streams of a program to a file respectively:
+Il modo più semplice per farlo è `< file` e `> file`. Questi ti permettono di
+reindirizzare rispettivamente l'input e l'output di un programma su un file:
 
 ```console
 missing:~$ echo hello > hello.txt
@@ -272,16 +258,14 @@ missing:~$ cat hello2.txt
 hello
 ```
 
-Demonstrated in the example above, `cat` is a program that con`cat`enates
-files. When given file names as arguments, it prints the contents of each of
-the files in sequence to its output stream. But when `cat` is not given any
-arguments, it prints contents from its input stream to its output stream (like
-in the third example above).
+Nell'esempio abbiamo usato `cat`, un programma che con`cat`ena file e li stampa
+in output, prendendoli dai suoi argomenti o, se non ci sono, dal suo input.
 
-You can also use `>>` to append to a file. Where this kind of
-input/output redirection really shines is in the use of _pipes_. The `|`
-operator lets you "chain" programs such that the output of one is the
-input of another:
+Puoi usare anche `>>` per aggiungere ad un file (`>` cancella il file se
+esiste già).
+
+Inoltre l'operatore _pipe_ (`|`) permette di concatenare l'output di un
+programma all'input del successivo:
 
 ```console
 missing:~$ ls -l / | tail -n1
@@ -290,36 +274,33 @@ missing:~$ curl --head --silent google.com | grep --ignore-case content-length |
 219
 ```
 
-We will go into a lot more detail about how to take advantage of pipes
-in the lecture on data wrangling.
+Vedremo meglio come usare le pipe nelle lezione sulla manipolazione dei dati.
 
-## A versatile and powerful tool
+## Uno strumento versatile e potente
 
-On most Unix-like systems, one user is special: the "root" user. You may
-have seen it in the file listings above. The root user is above (almost)
-all access restrictions, and can create, read, update, and delete any
-file in the system. You will not usually log into your system as the
-root user though, since it's too easy to accidentally break something.
-Instead, you will be using the `sudo` command. As its name implies, it
-lets you "do" something "as su" (short for "super user", or "root").
-When you get permission denied errors, it is usually because you need to
-do something as root. Though make sure you first double-check that you
-really wanted to do it that way!
+Nella maggior parte dei sistemi Unix-like c'è un utente speciale: root. Dovreste
+averlo visto nei file elencati nell'esempio qua sopra. Questo utente è al di
+sopra di quasi tutte le restrizioni e può creare, leggere, modificare e
+cancellare ogni file del sistema. Per questo non bisogna entrare nel sistema
+come root in quanto sarebbe facilissimo rompere qualcosa. Tuttavia a volte è
+necessario agire come root, e si può fare usando il comando `sudo` (super user,
+root, do). Quando un programma ti avvisa che non hai i permessi per fare
+qualcosa normalmente significa che necessiti di farlo tramite sudo, ma accertati
+sempre che sia veramente il modo giusto di farlo.
 
-One thing you need to be root in order to do is writing to the `sysfs` file
-system mounted under `/sys`. `sysfs` exposes a number of kernel parameters as
-files, so that you can easily reconfigure the kernel on the fly without
-specialized tools. **Note that sysfs does not exist on Windows or macOS.**
+Ad esempio per scrivere sul file system `sysfs` (montato in `/sys`) è necessario
+essere root. `sysfs` espone molti parametri del kernel come file, permettendone
+una facile modifica. **Nota che sysfs non è disponibile su Window e macOS**
 
-For example, the brightness of your laptop's screen is exposed through a file
-called `brightness` under
+Per esempio la luminosità dello schermo di un portatile è disponibile su un file
+chiamato `brightness` all'interno di
 
 ```
 /sys/class/backlight
 ```
 
-By writing a value into that file, we can change the screen brightness.
-Your first instinct might be to do something like:
+Scrivendo su questo file si può cambiare al volo la luminosità.
+Istintivamente potreste fare una cosa simile:
 
 ```console
 $ sudo find -L /sys/class/backlight -maxdepth 2 -name '*brightness*'
@@ -330,47 +311,45 @@ An error occurred while redirecting file 'brightness'
 open: Permission denied
 ```
 
-This error may come as a surprise. After all, we ran the command with
-`sudo`! This is an important thing to know about the shell. Operations
-like `|`, `>`, and `<` are done _by the shell_, not by the individual
-program. `echo` and friends do not "know" about `|`. They just read from
-their input and write to their output, whatever it may be. In the case
-above, the _shell_ (which is authenticated just as your user) tries to
-open the brightness file for writing, before setting that as `sudo
-echo`'s output, but is prevented from doing so since the shell does not
-run as root. Using this knowledge, we can work around this:
+Questo errore potrebbe sorprendere più di qualcuno. Dopotutto abbiamo avviato il
+comando come `sudo`! Questa è una cosa importante da sapere sulla shell. Le
+operazioni come `|`, `>`, `<` sono eseguite dalla shell, non dal singolo
+programma. `echo` e gli altri non sono a conoscenza di `|`: loro semplicemente
+leggono e scrivono dai loro stream, qualsiasi siano. Nell'esempio sopra la
+shell, che è autenticata come l'utente, tenta di aprire il file brightness in
+scrittura, prima che venga impostato come output di `sudo echo`, ma non può
+farlo perché non è stata eseguita da root. Sapendo ciò possiamo risolvere così:
 
 ```console
 $ echo 3 | sudo tee brightness
 ```
 
-Since the `tee` program is the one to open the `/sys` file for writing,
-and _it_ is running as `root`, the permissions all work out. You can
-control all sorts of fun and useful things through `/sys`, such as the
-state of various system LEDs (your path might be different):
+Siccome è il comando `tee` (che reindirizza il suo input sul file che prende
+come argomento) ad aprire il file in scrittura, ed è avviato come `root`, il
+tutto funziona. Puoi controllare in questo modo tutto ciò che si trova sotto
+`/sys`, come lo stato di vari LED (il percorso varia da macchina a mancchina):
 
 ```console
 $ echo 1 | sudo tee /sys/class/leds/input6::scrolllock/brightness
 ```
 
-# Next steps
+# Prossimi passi
 
-At this point you know your way around a shell enough to accomplish
-basic tasks. You should be able to navigate around to find files of
-interest and use the basic functionality of most programs. In the next
-lecture, we will talk about how to perform and automate more complex
-tasks using the shell and the many handy command-line programs out
-there.
+A questo punto sai usare la shell abbastanza da poter completare semplici
+azioni. Dovresti essere in grado di muoverti fra le cartelle per trovare i file
+su cui lavorare e usare le funzionalità base dei programmi. Nella prossima
+lezione vedremo come completare e automatizzare task più complesse con la shell
+e molti programmi a linea di comando.
 
-# Exercises
+# Esercizi
 
-All classes in this course are accompanied by a series of exercises. Some give
-you a specific task to do, while others are open-ended, like "try using X and Y
-programs". We highly encourage you to try them out.
+Tutte le lezioni in questo corso sono corredate da una serie di esercizi. Alcuni
+vi daranno alcuni compiti specifici da svolgere, mentre altri sono più liberi,
+come "prova ad usare i programmi X e Y". Raccomandiamo fortemente di provali.
 
-We have not written solutions for the exercises. If you are stuck on anything
-in particular, feel free to send us an email describing what you've tried so
-far, and we will try to help you out.
+Non abbiamo scritto le soluzioni degli esercizi. Se ti blocchi in un punto
+particolare, scrivici pure una mail descrivendo cosa hai provato a fare e
+proveremo ad aiutarti.
 
  1. For this course, you need to be using a Unix shell like Bash or ZSH. If you
     are on Linux or macOS, you don't have to do anything special. If you are on

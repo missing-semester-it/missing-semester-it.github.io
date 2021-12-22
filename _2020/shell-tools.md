@@ -155,7 +155,47 @@ Quando si eseguono comparazione in bash è però preferibile usare le doppie
 parentesi quadre `[[ ]]` al posto delle singole `[ ]`. Così i rischi di
 commettere errori saranno minori, tuttavia il codice non sarà retrocompatibile
 con `sh`. Maggiori informazioni possono essere trovate 
-[qui](https://github.com/koalaman/shellcheck).
+[qui](http://mywiki.wooledge.org/BashFAQ/031).
+
+Lanciando uno script spesso ci si trova a passare una serie di argomenti simili
+fra loro. Bash ha dei modi per facilitare l'inserimento di tali argomenti,
+espandendo delle espressioni chiamate _glob_.
+- Metacaratteri - Si possono usare i metacaratteri `?` e `*` per rappresentare
+  rispettivamente uno o molti caratteri qualsiasi. Ad esempio, dati i file
+  `pippo`, `pippo1`, `pippo2`, `pippo10` e `pluto`, il comando `rm pippo?`
+  cancellerà `pippo1` e `pippo2`, mentre `rm pippo*` cancellerà tutti i file
+  meno `pluto`.
+- Parentesi graffe `{}` - Quando c'è una sottostringa comune in una serie di
+  comandi si possono usare le parentesi graffe per racchiudere un elenco,
+  separato da virgole, delle parti divergenti del comando. Questo è molto utile
+  quando devi spostare o convertire file.
+
+```bash
+convert immagine.{png,jpg}
+# Verrà espanso in
+convert immagine.png immagine.jpg
+cp /percorso/al/progetto/{pippo,pluto,paperino}.sh /nuovo/percorso
+# Verrà espanso in
+cp /percorso/al/progetto/pippo.sh /percorso/al/progetto/pluto.sh /percorso/al/progetto/paperino.sh /nuovo/percorso
+# Le tecniche di glob possono anche essere combinate
+mv *{.py,.sh} cartella
+# Sposterà tutti i file *.py e *.sh
+mkdir pinco pallino
+# Questo comando creerà i file pinco/a, pinco/b , ..., pinco/h, pallino/a,
+# pallino/b, ..., pallino/h
+touch {pinco,pallino}/{a..h}
+touch pinco/x pallino/y
+# Mostrerà le differenze fra i file in pinco e qulli in pallino
+diff <(ls pinco) <(ls pallino)
+# Stamperà
+# < x
+# ---
+# > y
+```
+
+Scriver script in `bash` può essere poco intuitivo. Esistono però alcuni
+strumenti, come [shellcheck](https://github.com/koalaman/shellcheck), che
+possono aiutare a trovare errori.
 
 È importante notare che gli script non necessitano di essere scritti in bash per
 essere invocati nel terminale. Ad esempio, qui vediamo un semplice script Python
@@ -198,67 +238,84 @@ Alcune differenze importanti fra le funzioni della shell e gli script sono:
   codice modulare, riutilizzabile e chiaro. Spesso gli script shell includono
   funzioni al loro interno, utilizzate dallo script stesso.
 
-# Shell Tools
+# Strumenti della shell
 
-## Finding how to use commands
+## Capire come usare i comandi
 
-At this point, you might be wondering how to find the flags for the commands in the aliasing section such as `ls -l`, `mv -i` and `mkdir -p`.
-More generally, given a command, how do you go about finding out what it does and its different options?
-You could always start googling, but since UNIX predates StackOverflow, there are built-in ways of getting this information.
+A questo punto potreste chiedervi come capire che flag usare nei comandi, come
+`ls -l`, `mv -i` e `mkdir -p`. Più in generale, dato un comando, come si può
+sapere cosa fa e quali opzioni accetta? Si può fare una ricerca su internet, ma
+esiste anche uno strumento già integrato nei sistemi Unix-like.
 
-As we saw in the shell lecture, the first-order approach is to call said command with the `-h` or `--help` flags. A more detailed approach is to use the `man` command.
-Short for manual, [`man`](https://www.man7.org/linux/man-pages/man1/man.1.html) provides a manual page (called manpage) for a command you specify.
-For example, `man rm` will output the behavior of the `rm` command along with the flags that it takes, including the `-i` flag we showed earlier.
-In fact, what I have been linking so far for every command is the online version of the Linux manpages for the commands.
-Even non-native commands that you install will have manpage entries if the developer wrote them and included them as part of the installation process.
-For interactive tools such as the ones based on ncurses, help for the commands can often be accessed within the program using the `:help` command or typing `?`.
+Come abbiamo visto nella prima lezione, l'approccio più semplice è aggiungere il
+flag `-h` o `--help` alla chiamata del programma. Per avere una descrizione più
+ampia possiamo invece usare il comando `man` (manuale). Questo comando fornisce
+le pagine di manuale per il comando specificato. Ad esempio `man rm` mostrerà il
+comportamento di `rm` e tutti glia argomenti da lui accettati. Anche per molti
+comandi non nativi esiste la pagina di manuale, se l'autore del programma le ha
+previste. Per strumenti interattivi (ad esempio quelli basati su ncurses)
+la pagina di aiuto può essere mostrata usando il comando `:help` o `?`.
 
-Sometimes manpages can provide overly detailed descriptions of the commands, making it hard to decipher what flags/syntax to use for common use cases.
-[TLDR pages](https://tldr.sh/) are a nifty complementary solution that focuses on giving example use cases of a command so you can quickly figure out which options to use.
-For instance, I find myself referring back to the tldr pages for [`tar`](https://tldr.ostera.io/tar) and [`ffmpeg`](https://tldr.ostera.io/ffmpeg) way more often than the manpages.
+A volte le pagine di manuale sono molto prolisse, rendendo difficile capire che
+flag e opzioni usare per i casi comuni. Esiste però 
+[TLDR pages](https://tldr.sh/) che offre dei semplici esempi degli usi più
+comuni dei programmi. Ad esempio può essere comodo usarlo per i comandi
+[`tar`](https://tldr.ostera.io/tar) e [`ffmpeg`](https://tldr.ostera.io/ffmpeg).
 
 
-## Finding files
+## Trovare i file
 
-One of the most common repetitive tasks that every programmer faces is finding files or directories.
-All UNIX-like systems come packaged with [`find`](https://www.man7.org/linux/man-pages/man1/find.1.html), a great shell tool to find files. `find` will recursively search for files matching some criteria. Some examples:
+Uno dei compiti più ripetitivi di un programmatore è trovare i propri file e
+cartelle. In tutti i sistemi Unix-like è preinstallato il pacchetto
+[`find`](https://www.man7.org/linux/man-pages/man1/find.1.html), uno strumento
+ben fatto per trovare velocemente i file. `find` cerca ricorsivamente i file che
+rispondono a certi criteri, ad esempio:
 
 ```bash
-# Find all directories named src
+# Trova tutte le cartelle (directory) chiamate src
 find . -name src -type d
-# Find all python files that have a folder named test in their path
+# Trova tutti i file python che hanno una cartella
+# chiamata test nel loro percorso
 find . -path '*/test/*.py' -type f
-# Find all files modified in the last day
+# Trova tutti i file modificati nell'ultimo giorno
 find . -mtime -1
-# Find all zip files with size in range 500k to 10M
+# Trova tutti i file compressi di dimensione fra 500k e 10M
 find . -size +500k -size -10M -name '*.tar.gz'
 ```
-Beyond listing files, find can also perform actions over files that match your query.
-This property can be incredibly helpful to simplify what could be fairly monotonous tasks.
+Oltre ad elencare file, find può anche eseguire azione su di loro. Questo può
+essere incredibilmente di aiuto per semplificare molte attività che altrimenti
+andrebbero svolte manualmente.
 ```bash
-# Delete all files with .tmp extension
+# Cancella tutti i file con estensione .tmp
 find . -name '*.tmp' -exec rm {} \;
-# Find all PNG files and convert them to JPG
+# Trova tutti i PNG e convertili in JPG
 find . -name '*.png' -exec convert {} {}.jpg \;
 ```
 
-Despite `find`'s ubiquitousness, its syntax can sometimes be tricky to remember.
-For instance, to simply find files that match some pattern `PATTERN` you have to execute `find -name '*PATTERN*'` (or `-iname` if you want the pattern matching to be case insensitive).
-You could start building aliases for those scenarios, but part of the shell philosophy is that it is good to explore alternatives.
-Remember, one of the best properties of the shell is that you are just calling programs, so you can find (or even write yourself) replacements for some.
-For instance, [`fd`](https://github.com/sharkdp/fd) is a simple, fast, and user-friendly alternative to `find`.
-It offers some nice defaults like colorized output, default regex matching, and Unicode support. It also has, in my opinion, a more intuitive syntax.
-For example, the syntax to find a pattern `PATTERN` is `fd PATTERN`.
+Nonostante `find` sia il più diffuso strumento per questo scopo, la sua sintassi
+è difficile da ricordare. Ad esempio solo per trovare i file il cui nome
+contiene un certo pattern `PATTERN` bisogna eseguire `find -name '*PATTERN*'`
+(o `-iname` se si vuole un matching _case insensitive_).
+Si possono creare degli alias per questi scenari comuni, ma è bene anche
+esplorare alternative. Infatti nella shell i comandi non sono altro che
+programmi installati, quindi puoi trovare (o scrivere) programmi di rimpiazzo.
+Ad esempio, [`fd`](https://github.com/sharkdp/fd) è un'alternativa semplice,
+veloce e user-friendly a `find`. Offre alcune opzioni di default molto carine
+come l'output a colori, l'uso delle espressioni regolari e il supporto
+all'Unicode. Ha anche, secondo me, una sintassi molto più intuitiva: ad esempio
+per cercare il pattern `PATTERN` è sufficiente eseguire `fd PATTERN`.
 
-Most would agree that `find` and `fd` are good, but some of you might be wondering about the efficiency of looking for files every time versus compiling some sort of index or database for quickly searching.
-That is what [`locate`](https://www.man7.org/linux/man-pages/man1/locate.1.html) is for.
-`locate` uses a database that is updated using [`updatedb`](https://www.man7.org/linux/man-pages/man1/updatedb.1.html).
-In most systems, `updatedb` is updated daily via [`cron`](https://www.man7.org/linux/man-pages/man8/cron.8.html).
-Therefore one trade-off between the two is speed vs freshness.
-Moreover `find` and similar tools can also find files using attributes such as file size, modification time, or file permissions, while `locate` just uses the file name.
-A more in-depth comparison can be found [here](https://unix.stackexchange.com/questions/60205/locate-vs-find-usage-pros-and-cons-of-each-other).
+La maggior parte di voi penserà che `find` e `fd` siano ottimi strumenti, ma
+alcuni potrebbero chiedersi dell'efficienza del cercare ricorsivamente i file
+ogni volta, opposto ad un sistema di base di dati indicizzata per ricerche più
+rapide. Questo è quello che fa
+[`locate`](https://www.man7.org/linux/man-pages/man1/locate.1.html).
+Questo comando usa un database aggiornabile con
+[`updatedb`](https://www.man7.org/linux/man-pages/man1/updatedb.1.html).
+In molti sistemi il database è aggiornato giornalmente con 
+[`cron`](https://www.man7.org/linux/man-pages/man8/cron.8.html).
 
-## Finding code
+## Trovare codice
 
 Finding files by name is useful, but quite often you want to search based on file *content*. 
 A common scenario is wanting to search for all files that contain some pattern, along with where in those files said pattern occurs.

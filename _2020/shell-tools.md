@@ -8,37 +8,51 @@ video:
   id: kgII-YWo3Zw
 ---
 
-In this lecture, we will present some of the basics of using bash as a scripting language along with a number of shell tools that cover several of the most common tasks that you will be constantly performing in the command line.
+In questa lezione vedremo un'introduzione all'uso della shell come linguaggio
+di scripting, insieme ad degli strumenti che si usano frequentemente sulla
+linea di comando.
 
 # Shell Scripting
 
-So far we have seen how to execute commands in the shell and pipe them together.
-However, in many scenarios you will want to perform a series of commands and make use of control flow expressions like conditionals or loops.
+Fino a qua abbiamo visto come eseguire comandi nella shell e come concatenarli.
+Però in molti scenari potreste volere fare delle cose in più, come delle
+esecuzioni condizionate o dei cicli.
 
-Shell scripts are the next step in complexity.
-Most shells have their own scripting language with variables, control flow and its own syntax.
-What makes shell scripting different from other scripting programming language is that it is optimized for performing shell-related tasks.
-Thus, creating command pipelines, saving results into files, and reading from standard input are primitives in shell scripting, which makes it easier to use than general purpose scripting languages.
-For this section we will focus on bash scripting since it is the most common.
+Quasi tutte le shell hanno il loro linguaggio di scripting con variabili,
+controlli del flusso, e la loro sintassi.
+La peculiarità di questi linguaggi è che sono ottimizzati per eseguire
+operazioni legate alla riga di comando.
+Quindi operazioni come concatenazione di comandi, salvataggio dei risultati su
+file e lettura dallo standard input sono primitive importanti, che consentono
+una scrittura più facilitata di script, rispetto a linguaggi più generici.
+In questa lezione tratteremo il linguaggio di scripting di bash, che è il più
+comune.
 
-To assign variables in bash, use the syntax `foo=bar` and access the value of the variable with `$foo`.
-Note that `foo = bar` will not work since it is interpreted as calling the `foo` program with arguments `=` and `bar`.
-In general, in shell scripts the space character will perform argument splitting. This behavior can be confusing to use at first, so always check for that.
+Per assegnare ad una variabile si usa la sintassi `nome=valore` e l'accesso al
+valore della variabile con `$nome`.
+Prestate attenzione al fatto che `nome = valore` non funziona perché viene
+interpretato come la chiamata al comando `foo` con argomenti `=` e `valore`.
+In generale in bash lo spazio separa gli argomenti. Questo comportamento può
+sembrare strano all'inizio, quindi fate attenzione.
 
-Strings in bash can be defined with `'` and `"` delimiters, but they are not equivalent.
-Strings delimited with `'` are literal strings and will not substitute variable values whereas `"` delimited strings will.
+Le stringhe di testo possono essere definite sia con `'` che con `"`, ma non
+sono equivalenti.
+Le stringhe delimitate dai singoli apici sono stringhe letterali, mentre le
+stringhe con le doppie virgolette supportano l'espansione delle variabili.
 
 ```bash
-foo=bar
-echo "$foo"
-# prints bar
-echo '$foo'
-# prints $foo
+nome=valore
+echo "$nome"
+# stampa valore
+echo '$nome'
+# stampa $nome
 ```
 
-As with most programming languages, bash supports control flow techniques including `if`, `case`, `while` and `for`.
-Similarly, `bash` has functions that take arguments and can operate with them. Here is an example of a function that creates a directory and `cd`s into it.
-
+Come nella maggior parte dei linguaggi bash supporta i controlli di flusso
+(`if`, `case`, `while` e `for`).
+Allo stesso modo in bash si possono definire delle funzioni che prendono degli
+argomenti e possono operare con essi. Qui vediamo un esempio di una funzione che
+crea una cartella e si sposta all'interno di essa.
 
 ```bash
 mcd () {
@@ -47,110 +61,105 @@ mcd () {
 }
 ```
 
-Here `$1` is the first argument to the script/function.
-Unlike other scripting languages, bash uses a variety of special variables to refer to arguments, error codes, and other relevant variables. Below is a list of some of them. A more comprehensive list can be found [here](https://tldp.org/LDP/abs/html/special-chars.html).
-- `$0` - Name of the script
-- `$1` to `$9` - Arguments to the script. `$1` is the first argument and so on.
-- `$@` - All the arguments
-- `$#` - Number of arguments
-- `$?` - Return code of the previous command
-- `$$` - Process identification number (PID) for the current script
-- `!!` - Entire last command, including arguments. A common pattern is to execute a command only for it to fail due to missing permissions; you can quickly re-execute the command with sudo by doing `sudo !!`
-- `$_` - Last argument from the last command. If you are in an interactive shell, you can also quickly get this value by typing `Esc` followed by `.` or `Alt+.`
+Qui `$1` è il primo argomento della funzione.
+A differenza degli altri linguaggi, bash usa delle variabili speciali per
+rappresentare gli argomenti, i codici di errore e altro. Segue una lista di
+quelle più comuni. Un elenco più completo può essere trovato [qui](https://tldp.org/LDP/abs/html/special-chars.html).
+- `$0` - Nome dello script
+- da `$1` a `$9` - Argomenti dello script/funzione. `$1` è il primo e così via.
+- `$@` - Tutti gli argomenti
+- `$#` - Numero di argomenti
+- `$?` - Codice di ritorno del comando precedente
+- `$$` - PID (numero identificativo del processo) dello script corrente
+- `!!` - Ultimo comando eseguito, compresi i suoi argomenti. Spesso viene usato
+         quando ci si accorge di aver eseguito un'operazione per cui non si
+         hanno i permessi: per rieseguirla come root basta dare `sudo !!`.
+- `!*` - Argomenti dell'ultimo comando eseguito.
+- `$_` - Ultimo argomento dell'ultimo comando eseguito.
 
-Commands will often return output using `STDOUT`, errors through `STDERR`, and a Return Code to report errors in a more script-friendly manner.
-The return code or exit status is the way scripts/commands have to communicate how execution went.
-A value of 0 usually means everything went OK; anything different from 0 means an error occurred.
+I comandi solitamente ritornano un output mediante `STOUT` e gli eventuali
+errori mediante `STDERR`, più un codice di ritorno.
+Quest'ultimo assume il valore 0 se tutto è andato a buon fine, altrimenti un
+altro numero che indica che c'è stato un errore.
 
-Exit codes can be used to conditionally execute commands using `&&` (and operator) and `||` (or operator), both of which are [short-circuiting](https://en.wikipedia.org/wiki/Short-circuit_evaluation) operators. Commands can also be separated within the same line using a semicolon `;`.
-The `true` program will always have a 0 return code and the `false` command will always have a 1 return code.
-Let's see some examples
+I codici di ritorno possono essere usati per l'esecuzione condizionati di altri
+comandi usando gli operatori logici `&&` (e) e `||` (o), entrambi
+[cortocircuitati](https://it.wikipedia.org/wiki/Valutazione_a_corto_circuito).
+Più comandi possono essere scritti sulla stessa riga, separati da punti e
+virgola `;`.
+Il comando `true` ha sempre 0 come codice di ritorno, mentre `false` sempre 1.
+Vediamo alcuni esempi.
 
 ```bash
-false || echo "Oops, fail"
-# Oops, fail
+false || echo "Oops, fallito"
+# Oops, fallito
 
-true || echo "Will not be printed"
+true || echo "Non verrà stampato"
 #
 
-true && echo "Things went well"
-# Things went well
+true && echo "Tutto a posto"
+# Tutto a posto
 
-false && echo "Will not be printed"
+false && echo "Non verrà stampato"
 #
 
-true ; echo "This will always run"
-# This will always run
+true ; echo "Questo verrà sempre eseguito"
+# Questo verrà sempre eseguito
 
-false ; echo "This will always run"
-# This will always run
+false ; echo "Questo verrà sempre eseguito"
+# Questo verrà sempre eseguito
 ```
 
-Another common pattern is wanting to get the output of a command as a variable. This can be done with _command substitution_.
-Whenever you place `$( CMD )` it will execute `CMD`, get the output of the command and substitute it in place.
-For example, if you do `for file in $(ls)`, the shell will first call `ls` and then iterate over those values.
-A lesser known similar feature is _process substitution_, `<( CMD )` will execute `CMD` and place the output in a temporary file and substitute the `<()` with that file's name. This is useful when commands expect values to be passed by file instead of by STDIN. For example, `diff <(ls foo) <(ls bar)` will show differences between files in dirs  `foo` and `bar`.
+Un'altra operazione molto comune è voler salvare in una variabile l'output di un
+comando. Questo è possibile con la _sostituzione di comando_.
+Ovunque si inserisca `$( CMD )` la shell eseguirà `CMD` e sostituirà questa
+sintassi con l'output dell'esecuzione.
+Ad esempio scrivendo `for file in $(ls)`, la shell prima chiamerà `ls` e poi
+itererà fra i file elencati dal comando.  
+Simile, ma meno nota, è la _sostituzione di processo_, `<( CMD )`. Questa esegue
+sempre il comando `CMD` e reindirizza il suo output su un file temporaneo, il
+cui percorso sostituirà la sintassi `<()` nello script. Questa è molto utile per
+comandi che si aspettano il percorso di un file come argomento. Ad esempio `diff
+<(ls pippo) <(ls pluto)` mostrerà le differenze fra l'elenco dei file presenti
+nelle cartelle `pippo` e `pluto`.
 
-
-Since that was a huge information dump, let's see an example that showcases some of these features. It will iterate through the arguments we provide, `grep` for the string `foobar`, and append it to the file as a comment if it's not found.
+Siccome vi abbiamo fornito molte informazioni in poche righe, vediamo ora un
+esempio che ci mostri l'uso di questi strumenti. Questo script itera fra i suoi
+argomenti, usa `grep` alla ricerca della stringa `paperino` e, se non lo trova,
+lo aggiunge come commento.
 
 ```bash
 #!/bin/bash
 
-echo "Starting program at $(date)" # Date will be substituted
+echo "Avvio del programma in data $(date)" # La data sarà sostituita
 
-echo "Running program $0 with $# arguments with pid $$"
+echo "Esecuzione del programma $0 con $# argomenti e pid $$"
 
 for file in "$@"; do
-    grep foobar "$file" > /dev/null 2> /dev/null
-    # When pattern is not found, grep has exit status 1
-    # We redirect STDOUT and STDERR to a null register since we do not care about them
+    grep paperino "$file" > /dev/null 2> /dev/null
+    # Se il pattern non viene trovato, grep esce con codice 1
+    # Reindirizziamo STDOUT e STDERR in un registro nullo
+    # dato che non ne siamo interessati
     if [[ $? -ne 0 ]]; then
-        echo "File $file does not have any foobar, adding one"
-        echo "# foobar" >> "$file"
+        echo "Il file $file non contiene 'paperino', aggiungiamone uno"
+        echo "# paperino" >> "$file"
     fi
 done
 ```
 
-In the comparison we tested whether `$?` was not equal to 0.
-Bash implements many comparisons of this sort - you can find a detailed list in the manpage for [`test`](https://www.man7.org/linux/man-pages/man1/test.1.html).
-When performing comparisons in bash, try to use double brackets `[[ ]]` in favor of simple brackets `[ ]`. Chances of making mistakes are lower although it won't be portable to `sh`. A more detailed explanation can be found [here](http://mywiki.wooledge.org/BashFAQ/031).
+Nell'if abbiamo testato se `$?` fosse diverso da 0. Bash implementa molti
+comparatori di questo tipo: un elenco dettagliato può essere reperito nella
+pagina di manuale di 
+[`test`](https://www.man7.org/linux/man-pages/man1/test.1.html).
+Quando si eseguono comparazione in bash è però preferibile usare le doppie
+parentesi quadre `[[ ]]` al posto delle singole `[ ]`. Così i rischi di
+commettere errori saranno minori, tuttavia il codice non sarà retrocompatibile
+con `sh`. Maggiori informazioni possono essere trovate 
+[qui](https://github.com/koalaman/shellcheck).
 
-When launching scripts, you will often want to provide arguments that are similar. Bash has ways of making this easier, expanding expressions by carrying out filename expansion. These techniques are often referred to as shell _globbing_.
-- Wildcards - Whenever you want to perform some sort of wildcard matching, you can use `?` and `*` to match one or any amount of characters respectively. For instance, given files `foo`, `foo1`, `foo2`, `foo10` and `bar`, the command `rm foo?` will delete `foo1` and `foo2` whereas `rm foo*` will delete all but `bar`.
-- Curly braces `{}` - Whenever you have a common substring in a series of commands, you can use curly braces for bash to expand this automatically. This comes in very handy when moving or converting files.
-
-```bash
-convert image.{png,jpg}
-# Will expand to
-convert image.png image.jpg
-
-cp /path/to/project/{foo,bar,baz}.sh /newpath
-# Will expand to
-cp /path/to/project/foo.sh /path/to/project/bar.sh /path/to/project/baz.sh /newpath
-
-# Globbing techniques can also be combined
-mv *{.py,.sh} folder
-# Will move all *.py and *.sh files
-
-
-mkdir foo bar
-# This creates files foo/a, foo/b, ... foo/h, bar/a, bar/b, ... bar/h
-touch {foo,bar}/{a..h}
-touch foo/x bar/y
-# Show differences between files in foo and bar
-diff <(ls foo) <(ls bar)
-# Outputs
-# < x
-# ---
-# > y
-```
-
-<!-- Lastly, pipes `|` are a core feature of scripting. Pipes connect one program's output to the next program's input. We will cover them more in detail in the data wrangling lecture. -->
-
-Writing `bash` scripts can be tricky and unintuitive. There are tools like [shellcheck](https://github.com/koalaman/shellcheck) that will help you find errors in your sh/bash scripts.
-
-Note that scripts need not necessarily be written in bash to be called from the terminal. For instance, here's a simple Python script that outputs its arguments in reversed order:
+È importante notare che gli script non necessitano di essere scritti in bash per
+essere invocati nel terminale. Ad esempio, qui vediamo un semplice script Python
+che stampa i suoi argomenti in ordine inverso:
 
 ```python
 #!/usr/local/bin/python
@@ -159,15 +168,35 @@ for arg in reversed(sys.argv[1:]):
     print(arg)
 ```
 
-The kernel knows to execute this script with a python interpreter instead of a shell command because we included a [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) line at the top of the script.
-It is good practice to write shebang lines using the [`env`](https://www.man7.org/linux/man-pages/man1/env.1.html) command that will resolve to wherever the command lives in the system, increasing the portability of your scripts. To resolve the location, `env` will make use of the `PATH` environment variable we introduced in the first lecture.
-For this example the shebang line would look like `#!/usr/bin/env python`.
+Il kernel sa che deve eseguire questo script mediante un interprete python anzi
+che un comando della shell grazie allo
+[shebang](https://it.wikipedia.org/wiki/Shabang) in cima allo script.
+È buona prassi scrivere lo shebang usando il comando
+[`env`](https://www.man7.org/linux/man-pages/man1/env.1.html) che andrà alla
+ricerca del comando all'interno del sistema, aumentando così la portabilità
+dello script (infatti specificando un percorso assoluto potrebbe non funzionare
+se i comandi si trovano in cartelle diverse su sistemi diversi). Il comando
+`env` per trovare il percorso assoluto dei comandi usa la variabile d'ambiente
+`PATH` che abbiamo introdotto nella prima lezione.
+Quindi nell'esempio qua sopra sarebbe stato più corretto scrivere
+`#!/usr/bin/env python`.
 
-Some differences between shell functions and scripts that you should keep in mind are:
-- Functions have to be in the same language as the shell, while scripts can be written in any language. This is why including a shebang for scripts is important.
-- Functions are loaded once when their definition is read. Scripts are loaded every time they are executed. This makes functions slightly faster to load, but whenever you change them you will have to reload their definition.
-- Functions are executed in the current shell environment whereas scripts execute in their own process. Thus, functions can modify environment variables, e.g. change your current directory, whereas scripts can't. Scripts will be passed by value environment variables that have been exported using [`export`](https://www.man7.org/linux/man-pages/man1/export.1p.html)
-- As with any programming language, functions are a powerful construct to achieve modularity, code reuse, and clarity of shell code. Often shell scripts will include their own function definitions.
+Alcune differenze importanti fra le funzioni della shell e gli script sono:
+- Le funzioni devono essere scritte nello stesso linguaggio della shell, mentre
+  gli script possono essere scritti in qualsiasi linguaggio. Per questo inserire
+  lo shebang è importante.
+- Le funzioni sono caricate una volta, alla loro definizione. Gli script invece
+  sono caricati ad ogni loro esecuzione. Per questo le funzioni sono leggermente
+  più veloci.
+- Le funzioni vengono eseguite nell'ambiente della shell corrente, mentre gli
+  script vengono eseguiti in un processo a se stante. Quindi le funzioni possono
+  modificare le variabili d'ambiente (ad esempio la cartella di lavoro), mentre
+  gli script non possono farlo. Agli script vengono passate per valore le
+  variabili d'ambiente che vengono esportate usando
+  [`export`](https://www.man7.org/linux/man-pages/man1/export.1p.html)
+- Come in ogni linguaggio, le funzioni sono un costrutto potente per scrivere
+  codice modulare, riutilizzabile e chiaro. Spesso gli script shell includono
+  funzioni al loro interno, utilizzate dallo script stesso.
 
 # Shell Tools
 

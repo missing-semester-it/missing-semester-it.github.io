@@ -43,7 +43,7 @@ Leggi le [motivazioni di questo corso](/about/).
     - [ ] security
 - [ ] 2020
     - [X] course-shell
-    - [-] shell-tools
+    - [X] shell-tools
     - [ ] editors
     - [ ] data-wrangling
     - [ ] command-line

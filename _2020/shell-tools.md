@@ -317,86 +317,133 @@ In molti sistemi il database è aggiornato giornalmente con
 
 ## Trovare codice
 
-Finding files by name is useful, but quite often you want to search based on file *content*. 
-A common scenario is wanting to search for all files that contain some pattern, along with where in those files said pattern occurs.
-To achieve this, most UNIX-like systems provide [`grep`](https://www.man7.org/linux/man-pages/man1/grep.1.html), a generic tool for matching patterns from the input text.
-`grep` is an incredibly valuable shell tool that we will cover in greater detail during the data wrangling lecture.
+Trovare i file mediante il loro nome è utile, ma spesso è più utile cercarli
+mediante il loro _contenuto_. Uno scenario comune è trovare tutti i file che
+contengono un pattern, e il punto esatto dove compare in essi. A questo scopo
+molti sistemi Unix-like forniscono 
+[`grep`](https://www.man7.org/linux/man-pages/man1/grep.1.html), un tool
+generico per la ricerca di pattern nel testo in input.
+`grep` è uno strumento molto utile, che andremo a coprire in maggior dettaglio
+nella lezione sulla manipolazione dei dati.
 
-For now, know that `grep` has many flags that make it a very versatile tool.
-Some I frequently use are `-C` for getting **C**ontext around the matching line and `-v` for in**v**erting the match, i.e. print all lines that do **not** match the pattern. For example, `grep -C 5` will print 5 lines before and after the match.
-When it comes to quickly searching through many files, you want to use `-R` since it will **R**ecursively go into directories and look for files for the matching string.
+Per il momento ci basta sapere che `grep` ha molti flag che lo rendono
+versatile. Quelli che uso più spesso sono `-C` per stampare anche il
+**c**ontesto del match e `-v` per in**v**ertire il match (ovvero stamapre le
+righe che non corrispondono). Ad esempio `grep -C 5` stamperà anche 5 righe
+prima e dopo il match. Se si vuole fare piccole ricerche su più file, risulta
+utile il flag `-R` che **r**icorsivamente esplora le cartelle alla ricerca di
+file il cui contenuto corrisponda al pattern.
 
-But `grep -R` can be improved in many ways, such as ignoring `.git` folders, using multi CPU support, &c.
-Many `grep` alternatives have been developed, including [ack](https://beyondgrep.com/), [ag](https://github.com/ggreer/the_silver_searcher) and [rg](https://github.com/BurntSushi/ripgrep).
-All of them are fantastic and pretty much provide the same functionality.
-For now I am sticking with ripgrep (`rg`), given how fast and intuitive it is. Some examples:
+Ma `grep -R` può essere migliorato in molti modi, come ignorando le cartelle
+`.git`, sfruttando il multi-threading, ...  
+Negli anni sono state sviluppate molte alternative a `grep`, inclusi
+[ack](https://beyondgrep.com/),
+[ag](https://github.com/ggreer/the_silver_searcher)
+e [rg](https://github.com/BurntSushi/ripgrep).
+Sono tutti strumenti fantastici e offrono più o meno le stesse funzionalità.
+Attualmente sto usando ripgrep (`rg`), dato che è molto veloce ed intuitivo.
+Ecco alcuni esempi:
 ```bash
-# Find all python files where I used the requests library
+# Trova tutti i file python dove ho usato la libreria requests
 rg -t py 'import requests'
-# Find all files (including hidden files) without a shebang line
+# Trova tutti i file (inclusi quelli nascosti) senza shebang
 rg -u --files-without-match "^#!"
-# Find all matches of foo and print the following 5 lines
-rg foo -A 5
-# Print statistics of matches (# of matched lines and files )
+# Trova tutti i match di pippo e stampa le 5 righe seguenti
+rg pippo -A 5
+# Stampa le statistiche sui macth (numero di righe e file che corrispondono)
 rg --stats PATTERN
 ```
 
-Note that as with `find`/`fd`, it is important that you know that these problems can be quickly solved using one of these tools, while the specific tools you use are not as important.
+Notate che, come con `find`/`fd`, è importante che sappiate che questi problemi
+si possano facilmente risolvere con questi strumenti, mentre saper usare il tool
+specifico non ha la stessa importanza.
 
-## Finding shell commands
+## Trovare comandi della shell
 
-So far we have seen how to find files and code, but as you start spending more time in the shell, you may want to find specific commands you typed at some point.
-The first thing to know is that typing the up arrow will give you back your last command, and if you keep pressing it you will slowly go through your shell history.
+Fino a qui abbiamo visto come cercare file e codice, ma iniziando ad usare di
+più la shell vi accorgerete che vi sarà utile trovare un specifico comando che
+avete digitato tempo fa. La prima cosa da sapere è che la freccia in su scorre
+la cronologia dei comandi.
 
-The `history` command will let you access your shell history programmatically.
-It will print your shell history to the standard output.
-If we want to search there we can pipe that output to `grep` and search for patterns.
-`history | grep find` will print commands that contain the substring "find".
+Il comando `history` ti permette invece un accesso puntuale alla cronologia.
+Infatti stampa a video tutta la cronologia dei comandi della shell. Per trovare
+quello che cerchiamo possiamo concatenarlo col comando `grep` alla ricerca di
+pattern: `history | grep pattern` stamperà i comandi che corrispondo al pattern
+richiesto.
 
-In most shells, you can make use of `Ctrl+R` to perform backwards search through your history.
-After pressing `Ctrl+R`, you can type a substring you want to match for commands in your history.
-As you keep pressing it, you will cycle through the matches in your history.
-This can also be enabled with the UP/DOWN arrows in [zsh](https://github.com/zsh-users/zsh-history-substring-search).
-A nice addition on top of `Ctrl+R` comes with using [fzf](https://github.com/junegunn/fzf/wiki/Configuring-shell-key-bindings#ctrl-r) bindings.
-`fzf` is a general-purpose fuzzy finder that can be used with many commands.
-Here it is used to fuzzily match through your history and present results in a convenient and visually pleasing manner.
+Nella maggior parte delle shell si può premere `Ctrl+R` per effettuare una
+ricerca nella cronologia digitando una sottostringa del comando desiderato.
+Ripremendo la combinazione di tasti al ricerca scorrerà all'indietro
+(**r**everse). Questo comportamento può essere abilitato di default alle
+freccette su e giù in
+[zsh](https://github.com/zsh-users/zsh-history-substring-search).  
+Interessante è
+[fzf](https://github.com/junegunn/fzf/wiki/Configuring-shell-key-bindings#ctrl-r),
+un _fuzzy finder_ che effettua _ricerche approssimative_, che ha dei _binding_
+per `Ctrl+R` i quali permettono una ricerca approssimata nella cronologia dei
+comandi.
 
-Another cool history-related trick I really enjoy is **history-based autosuggestions**.
-First introduced by the [fish](https://fishshell.com/) shell, this feature dynamically autocompletes your current shell command with the most recent command that you typed that shares a common prefix with it.
-It can be enabled in [zsh](https://github.com/zsh-users/zsh-autosuggestions) and it is a great quality of life trick for your shell.
+Un altro bel trucchetto sono gli auto-suggerimenti dei comandi basati sulla
+cronologia. Introdotti nella shell [fish](https://fishshell.com/) effettuano un
+autocompletamento dinamico dei comandi mentre vengono digitati, basati su
+comandi recenti con lo stesso prefisso. Possono essere abilitati in
+[zsh](https://github.com/zsh-users/zsh-autosuggestions).
 
-You can modify your shell's history behavior, like preventing commands with a leading space from being included. This comes in handy when you are typing commands with passwords or other bits of sensitive information.
-To do this, add `HISTCONTROL=ignorespace` to your `.bashrc` or `setopt HIST_IGNORE_SPACE` to your `.zshrc`.
-If you make the mistake of not adding the leading space, you can always manually remove the entry by editing your `.bash_history` or `.zhistory`.
+Il comportamento della cronologia può essere modificato, come ad esempio
+disabilitando l'inclusione di comandi che iniziano per spazio. Questo è molto
+comodo quando stai digitando comandi che contengono password o altre
+informazioni sensibili da non salvare in chiaro.
+Per fare ciò aggiungi `HISTCONTROL=ignorespace` al file di configurazione
+`.bashrc` o, se usi zsh, `setopt HIST_IGNORE_SPACE` al `.zshrc`.
+Se dimentichi di inserire lo spazio iniziale puoi sempre cancellare manualmente
+i comandi dal file `.bash_history` o `.zhistory`.
 
-## Directory Navigation
+## Muoversi fra le cartelle
 
-So far, we have assumed that you are already where you need to be to perform these actions. But how do you go about quickly navigating directories?
-There are many simple ways that you could do this, such as writing shell aliases or creating symlinks with [ln -s](https://www.man7.org/linux/man-pages/man1/ln.1.html), but the truth is that developers have figured out quite clever and sophisticated solutions by now.
+Finora abbiamo supposto che ti trovavi già nella cartella dove dovevi compiere
+le operazioni. Ma come spostarsi velocemente in una cartella? Ci sono molti
+semplici modi per farlo, come scrivere degli alias per la shell o creare
+collegamenti simbolici con
+[ln -s](https://www.man7.org/linux/man-pages/man1/ln.1.html), usare la ricerca
+nella cronologia, ma gli sviluppatori hanno trovato dei modi intelligenti e
+sofisticati per farlo.
 
-As with the theme of this course, you often want to optimize for the common case.
-Finding frequent and/or recent files and directories can be done through tools like [`fasd`](https://github.com/clvv/fasd) and [`autojump`](https://github.com/wting/autojump).
-Fasd ranks files and directories by [_frecency_](https://web.archive.org/web/20210421120120/https://developer.mozilla.org/en-US/docs/Mozilla/Tech/Places/Frecency_algorithm), that is, by both _frequency_ and _recency_.
-By default, `fasd` adds a `z` command that you can use to quickly `cd` using a substring of a _frecent_ directory. For example, if you often go to `/home/user/files/cool_project` you can simply use `z cool` to jump there. Using autojump, this same change of directory could be accomplished using `j cool`.
+Per trovare file e cartelle recenti e/o frequenti si può usare degli strumenti
+come [`fasd`](https://github.com/clvv/fasd)
+e [`autojump`](https://github.com/wting/autojump).
+Il primo ordina file e cartelle per
+[_frecency_](https://web.archive.org/web/20210421120120/https://developer.mozilla.org/en-US/docs/Mozilla/Tech/Places/Frecency_algorithm),
+ovvero per _frequenza_ (*fre*qunce) e _data_ (re*cency*).
+`fasd` offre anche un comando `z` che permette di spostarsi velocemente in una
+cartella inserendo una sottostringa di una cartella frequente. Ad esempio,
+se vai spesso in `/home/utente/file/progetto_bello`, puoi arrivarci
+semplicemente con `z bello`. Usando autojump si può fare la stessa cosa, usando
+però il comando `j`.
 
-More complex tools exist to quickly get an overview of a directory structure: [`tree`](https://linux.die.net/man/1/tree), [`broot`](https://github.com/Canop/broot) or even full fledged file managers like [`nnn`](https://github.com/jarun/nnn) or [`ranger`](https://github.com/ranger/ranger).
+Esisto degli strumenti più complessi che offrono una visuale veloce della
+struttura delle cartelle: [`tree`](https://linux.die.net/man/1/tree),
+[`broot`](https://github.com/Canop/broot) o anche un gestore dei file completo
+come [`nnn`](https://github.com/jarun/nnn)
+o [`ranger`](https://github.com/ranger/ranger).
 
-# Exercises
+# Esercizi
 
-1. Read [`man ls`](https://www.man7.org/linux/man-pages/man1/ls.1.html) and write an `ls` command that lists files in the following manner
+1. Leggi [`man ls`](https://www.man7.org/linux/man-pages/man1/ls.1.html) e
+   scrivi un comando `ls` che listi i file nella seguente maniera:
 
-    - Includes all files, including hidden files
-    - Sizes are listed in human readable format (e.g. 454M instead of 454279954)
-    - Files are ordered by recency
-    - Output is colorized
+    - Includa tutti i file, compresi quelli nascosti
+    - Le dimensioni sono mostrate in un formato umanamente leggibile
+      (ad esempio 454M anzi che 454279954)
+    - I file sono ordinati per data
+    - L'output è colorato
 
-    A sample output would look like this
+    Ecco un output di esempio:
 
     ```
-    -rw-r--r--   1 user group 1.1M Jan 14 09:53 baz
+    -rw-r--r--   1 user group 1.1M Jan 14 09:53 pippo
     drwxr-xr-x   5 user group  160 Jan 14 09:53 .
-    -rw-r--r--   1 user group  514 Jan 14 06:42 bar
-    -rw-r--r--   1 user group 106M Jan 13 12:12 foo
+    -rw-r--r--   1 user group  514 Jan 14 06:42 pluto
+    -rw-r--r--   1 user group 106M Jan 13 12:12 paperino
     drwx------+ 47 user group 1.5K Jan 12 18:08 ..
     ```
 
@@ -404,9 +451,12 @@ More complex tools exist to quickly get an overview of a directory structure: [`
 ls -lath --color=auto
 {% endcomment %}
 
-1. Write bash functions  `marco` and `polo` that do the following.
-Whenever you execute `marco` the current working directory should be saved in some manner, then when you execute `polo`, no matter what directory you are in, `polo` should `cd` you back to the directory where you executed `marco`.
-For ease of debugging you can write the code in a file `marco.sh` and (re)load the definitions to your shell by executing `source marco.sh`.
+1. Scrivi le funzioni bash `marco` e `polo` col seguente comportamento.
+Quando invochi `marco` la cartella corrente dev'essere, in qualche modo,
+salvata, e quando invochi `polo`, in una qualsiasi cartella, devi spostarti
+nella carella salvata dalla funzione precedente.  
+Per facilitare il debug puoi scrivere il codice in un file `marco.sh` e
+ricaricare le definizioni delle funzioni nella shell con `source marco.sh`.
 
 {% comment %}
 marco() {
@@ -418,9 +468,12 @@ polo() {
 }
 {% endcomment %}
 
-1. Say you have a command that fails rarely. In order to debug it you need to capture its output but it can be time consuming to get a failure run.
-Write a bash script that runs the following script until it fails and captures its standard output and error streams to files and prints everything at the end.
-Bonus points if you can also report how many runs it took for the script to fail.
+1. Ipotizziamo di avere un comando che fallisce raramente. Per poter debuggarlo
+   è necessario leggere il suo output e potrebbe richiedere molto tempo
+   attendere per un fallimento. Scrivi uno script bash che esegua lo script
+   seguente finché non fallisce, catturando i suoi output (STDOUT e STDERR) su
+   dei file da stampare a video al termine. Punti bonus per chi stampa anche il
+   numero di esecuzioni necessarie prima del fallimento.
 
     ```bash
     #!/usr/bin/env bash
@@ -428,12 +481,12 @@ Bonus points if you can also report how many runs it took for the script to fail
     n=$(( RANDOM % 100 ))
 
     if [[ n -eq 42 ]]; then
-       echo "Something went wrong"
-       >&2 echo "The error was using magic numbers"
+       echo "Qualcosa è andato storto"
+       >&2 echo "L'errore è stato usare numeri magici"
        exit 1
     fi
 
-    echo "Everything went according to plan"
+    echo "Tutto a posto"
     ```
 
 {% comment %}
@@ -450,18 +503,35 @@ echo "found error after $count runs"
 cat out.txt
 {% endcomment %}
 
-1. As we covered in the lecture `find`'s `-exec` can be very powerful for performing operations over the files we are searching for.
-However, what if we want to do something with **all** the files, like creating a zip file?
-As you have seen so far commands will take input from both arguments and STDIN.
-When piping commands, we are connecting STDOUT to STDIN, but some commands like `tar` take inputs from arguments.
-To bridge this disconnect there's the [`xargs`](https://www.man7.org/linux/man-pages/man1/xargs.1.html) command which will execute a command using STDIN as arguments.
-For example `ls | xargs rm` will delete the files in the current directory.
+1. Come abbiamo visto nella lezione l'opzione `-exex` di `find` può essere molto
+   potente per effettuare operazioni su i file che si sta cercando. Tuttavia
+   come fare se volgiamo fare un'azione con **tutti** i file, come ad esempio
+   creare un archivio compresso? Come visto fin'ora i comandi accettano input
+   sia da STDIN che tramite argomenti. Quando si concatenano comandi però stiamo
+   connettendo l'STDOUT del primo all'STDIN del secondo: questo non ci aiuta a
+   connettere il comando `tar` che accetta input solo dai suoi argomenti. Per
+   risolvere il problema c'è il comando
+   [`xargs`](https://www.man7.org/linux/man-pages/man1/xargs.1.html) che esegue
+   un comando usando STDIN come argomenti. Ad esempio `ls | xargs rm`
+   cancellerà i file nella cartella corrente.
 
-    Your task is to write a command that recursively finds all HTML files in the folder and makes a zip with them. Note that your command should work even if the files have spaces (hint: check `-d` flag for `xargs`).
-    {% comment %}
-    find . -type f -name "*.html" | xargs -d '\n'  tar -cvzf archive.tar.gz
-    {% endcomment %}
+   Il tuo compito è quello di scrivere un comando che ricorsivamente trova tutti
+   i file HTML nella cartella e crea un archivio compresso che li contiene.
+   Presta attenzione affinché lo script funzioni anche i nomi dei file
+   contengono spazi (suggerimento: controlla a cosa serve il flag `-d` di
+   `xargs`).
+   {% comment %}
+   `find . -type f -name "*.html" | xargs -d '\n'  tar -cvzf archive.tar.gz`
+   {% endcomment %}
 
-    If you're on macOS, note that the default BSD `find` is different from the one included in [GNU coreutils](https://en.wikipedia.org/wiki/List_of_GNU_Core_Utilities_commands). You can use `-print0` on `find` and the `-0` flag on `xargs`. As a macOS user, you should be aware that command-line utilities shipped with macOS may differ from the GNU counterparts; you can install the GNU versions if you like by [using brew](https://formulae.brew.sh/formula/coreutils).
+   Se lavori con macOS presta attenzione al fatto che la versione BSD di `find`
+   è diversa da quella inclusa nelle
+   [GNU coreutils](https://en.wikipedia.org/wiki/List_of_GNU_Core_Utilities_commands). 
+   Puoi usare `-print0` su `find` e il flag `-0` su `xargs`. Come utente macOS
+   devi ricordarti che le utility a linea di comando possono differire da quelle
+   GNU presenti su GNU/Linux; puoi installare la versione GNU [usando
+   brew](https://formulae.brew.sh/formula/coreutils).
 
-1. (Advanced) Write a command or script to recursively find the most recently modified file in a directory. More generally, can you list all files by recency?
+1. (Avanzato) Scrivi un comando che trova ricorsivamente i file modificati più
+   recentemente in una cartella. O più genericamente riesci ad elencare i file
+   (ricorsivamente) per data?
